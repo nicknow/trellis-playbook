@@ -1,0 +1,85 @@
+<!--
+  Template: the scaffolding prompt — a narrow, literal, self-verifying prompt whose only job is
+  to stand up (or retrofit) the knowledge architecture from
+  trellis/principles/01-knowledge-architecture.md in a repository: the three tiers, the
+  entry-point file, and the ignore rules around scratch. It does not decide roles, standards, or
+  workflow content — that's trellis/templates/starter-prompt.md.template Part 2, steps 4–5, or
+  ADOPTING.md steps 4–5, once this structural pass is done.
+
+  Use this on its own when: a project already has code and history but has never adopted any of
+  this standard, and the immediate need is just "give this repo a place for durable knowledge to
+  live" without committing yet to the full role/workflow setup. It is written to be safe to run
+  on a non-empty repository — nothing here should require an empty starting point.
+
+  It's also referenced as a sub-step from starter-prompt.md.template Part 2, step 3, for
+  greenfield setup — same prompt, same self-checks, just run earlier in that larger flow.
+
+  Fill in the bracketed fields, delete this comment block, then send.
+-->
+
+# Scaffolding prompt: knowledge architecture for [PROJECT_NAME]
+
+## Assignment
+
+Stand up the three-tier knowledge architecture described in
+[TRELLIS_LOCATION]`/principles/01-knowledge-architecture.md` in this repository. Read that file
+first if you haven't already — this prompt is the concrete checklist for applying it, not a
+replacement for understanding why it's structured this way.
+
+- **Permanent project knowledge lives in:** `[dir, e.g. docs/]`
+- **Permanent process knowledge lives in:** `[dir, e.g. .ai/ or process/]`
+- **Disposable per-role scratch lives in:** `[dir, e.g. .work/ or .scratch/]`
+- **Entry-point file:** `[filename, e.g. AGENTS.md]` at the repository root
+
+## Steps
+
+1. **Inventory what already exists.** Do not assume an empty repository. List any existing
+   documentation, ad hoc notes, config, or structure that already occupies these paths or serves
+   a similar purpose. If this repository already has its own documentation conventions, note the
+   overlap explicitly rather than silently colliding with it.
+2. **Create the three tiers**, if they don't already exist. **Preserve everything already
+   present** — this is additive scaffolding, not a rewrite. Where existing content clearly
+   belongs in one of the new tiers (e.g. an existing architecture doc belongs under permanent
+   project knowledge), move or reference it deliberately and say so in your summary; don't leave
+   duplicate copies in two places.
+3. **Create or update the entry-point file** using
+   [TRELLIS_LOCATION]`/templates/AGENTS.md.template`. Keep it concise: it routes to the tiers
+   above, in the order they should be read, and contains no detailed project knowledge itself.
+   If one already exists, integrate rather than replace — preserve anything in it that's still
+   accurate.
+4. **Add a short index/README at the root of each tier** stating what it answers and what
+   belongs in it (see [TRELLIS_LOCATION]`/templates/docs-index-README.md.template` for the
+   permanent-project-knowledge tier as a starting point; the process-knowledge and scratch tiers
+   need only a few sentences each).
+5. **Update this repository's ignore rules** (`.gitignore` or equivalent) so the scratch tier
+   (and any cache/log subdirectories under it) is excluded from version control, **except** the
+   index/README files created in step 4 — those should stay tracked so the tier's purpose is
+   documented even though its contents aren't.
+6. **Do not** create role prompts, standards, or workflow documents in this pass — that's a
+   separate, deliberate step (see [TRELLIS_LOCATION]`/templates/starter-prompt.md.template` Part
+   2 or `ADOPTING.md`), and mixing it into pure structural scaffolding makes both harder to
+   review.
+
+## Before reporting, verify
+
+- [ ] All three tiers exist at the paths specified above.
+- [ ] The entry-point file is concise, routes to the tiers, and contains no detailed content of
+      its own.
+- [ ] Each tier's purpose is unambiguous — a new reader could tell, from the index files alone,
+      which tier a given piece of knowledge belongs in.
+- [ ] Ignore rules exclude the scratch tier's working content, but its index/README stays
+      tracked.
+- [ ] Nothing that existed before this pass was deleted or silently overwritten — anything moved,
+      merged, or superseded is called out explicitly in the summary below.
+- [ ] No temporary or scratch directory is referenced as a dependency anywhere (build config,
+      other docs, code).
+- [ ] **No existing project behavior changed.** This pass adds structure for documentation and
+      process knowledge; it does not touch application code, build output, or runtime behavior.
+      If anything outside the tiers above and the entry-point file was modified, that's a signal
+      this step overran its scope — undo it or justify it explicitly.
+
+## Report
+
+Summarize every change made: files and directories created, files modified (and what changed),
+anything preserved or merged rather than overwritten, and anything flagged for human follow-up
+(e.g. an existing doc whose right home wasn't obvious).

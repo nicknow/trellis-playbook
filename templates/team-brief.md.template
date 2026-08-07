@@ -1,0 +1,149 @@
+<!--
+  Template: the full team process document — the thing AGENTS.md points to as "how the team
+  works." See trellis/principles/02-roles-and-team-model.md and 03-workflow-lifecycle.md
+  before filling this in. This is a long-lived, permanent-process-knowledge document — write it
+  for a reader who has never seen the project. Every bracketed field is one of this standard's
+  open parameters (see trellis/principles/00-philosophy.md#every-open-parameter-gets-an-explicit-answer):
+  fill it with a real answer or an explicit "not applicable, because ..." — never leave a bracket
+  in a committed file. Delete this comment block once filled in.
+-->
+
+# Team brief: [PROJECT_NAME]
+
+This document is the source of truth for **how the team works** — roles, workflow, boundaries,
+and review gates. `[spec path]` is the source of truth for *what* to build; `[knowledge-
+architecture doc path]` is the source of truth for *how the repository is organized*. Adopt both
+exactly; this brief governs process on top of them.
+
+## Operating principles
+
+- **Small vertical slices, test-first.** See `[workflow doc path]`.
+- **Care and precision over speed.** Going slower to be correct is always acceptable.
+- **Evidence, not assumption.** [Name any fast-moving dependency this project relies on —
+  platform APIs, libraries, security guidance — that must be verified against current sources
+  rather than trusted from memory.]
+- **Performance and cost.** [State this project's actual budget/constraint, if any — a latency
+  target, a spend ceiling, a resource limit — or "no meaningful performance/cost concern at this
+  project's scale" if that's the honest answer. See
+  trellis/principles/04-quality-gates.md#performance-and-cost.]
+- **[Any project-specific constraint on autonomy, e.g. "no real production access," "no network
+  calls in tests," etc.]**
+- **Reproducibility.** A fresh checkout must install, build, test, and run the local dev loop
+  with [no external accounts / whatever the project's actual bar is].
+
+## The team and their workspaces
+
+[List the roles this project actually uses — see trellis/principles/02-roles-and-team-model.md
+for the full model and how it scales down. Delete rows that don't apply; a solo project may
+collapse this to a single "how I run each pass" section instead of a table.]
+
+- **`[stakeholder]`** (usually a named human, not a scratch dir) — owns the spec and backlog
+  priority; the default authority for ambiguous, irreversible, or consequential decisions; gives
+  go/no-go at each review checkpoint below. Named individual: [name/contact].
+- **`[orchestrator]`** (`[scratch dir]`) — coordinates the team, enforces gates, is the point of
+  contact with the stakeholder.
+- **`[planner]`** (`[scratch dir]`) — turns the spec into a slice plan with acceptance criteria,
+  dependency order, risk register, open-questions log. Output: `[roadmap/plan doc path]`.
+- **`[architect]`** (`[scratch dir]`) — owns cross-cutting decisions, contracts, data model, test
+  strategy, performance/cost trade-offs, and revising prior ADRs. Output: `[architecture doc
+  path]`, ADRs in `[adr dir]`.
+- **`[designer]`** (`[scratch dir]`) — [if this project has a user-facing surface: owns the
+  design system and accessibility standard, and the cost/benefit call on design asks. Output:
+  `[design system doc path]`. **If this project has no user-facing surface, delete this row and
+  say so explicitly rather than leaving it unfilled** — see
+  trellis/principles/02-roles-and-team-model.md#designer.]
+- **`[implementer]`** (`[scratch dir]`) — writes tests first, then code, one slice at a time.
+- **`[validator]`** (`[scratch dir]`) — independent of the implementer; verifies against the
+  spec with tests it writes itself (never reads or relies on the implementer's tests), adds
+  edge/regression tests.
+- **`[reviewer]`** (`[scratch dir]`) — read-only; quality, standards, docs, boundaries, and (if
+  applicable) confirms the designer's check happened; verdict only, does not edit.
+- **`[deployer/operator]`** — the only role permitted to reach real production systems, and only
+  with [per-call human approval / whatever your project's rule is]. Not part of the build loop.
+  Owns running this project's observability and rollback approach (below) for real.
+
+Durable knowledge discovered by any role is promoted out of scratch into permanent project or
+process knowledge before the slice closes — see `[knowledge-promotion workflow path]`.
+
+## Workflow
+
+Every "stop for review" below is a stop for the stakeholder named above, decided once as a
+cadence during setup — not renegotiated slice by slice (see
+trellis/principles/03-workflow-lifecycle.md).
+
+**Phase 0 — Scaffolding.** [What this means concretely for this project.] Stop for stakeholder
+review.
+
+**Phase 1 — Plan.** Delegate to `[planner]`. Stop for stakeholder review.
+
+**Phase 2 — Architect.** Delegate to `[architect]` (and `[designer]`, if applicable, for
+design/accessibility decisions). Stop for stakeholder review.
+
+**Phase 3…N — Implement, one slice at a time.** Run `[slice-implementation-loop workflow path]`
+and do not start the next slice until the current one closes — except independent slices
+explicitly approved for parallel work (see "Parallel work" below).
+
+**Final phase.** End-to-end validation against the spec; Definition of Done checklist
+(`[definition-of-done doc path]`); [operator smoke-test checklist if applicable]; final summary
+for the stakeholder.
+
+## Parallel work
+
+[State this project's actual policy: "not used — slices are implemented strictly sequentially"
+or "independent slices (no shared dependency, flagged as such by the planner) may be implemented
+in parallel, each in its own [devcontainer instance / git worktree] on its own branch, merging to
+`[feature branch / integration branch]` per trellis/principles/06-source-control-and-release.md#parallel-work."]
+
+## Testing requirements (this project specifically)
+
+[This is where the project's own concrete testing approach goes — what's emulated vs. mocked,
+what infra seams can't be automated and how they're covered instead, and the coverage threshold
+**as a specific number or an explicit decision not to use one** — never left blank. See
+trellis/principles/05-testing-discipline.md. Do not leave this section generic — this is the
+project's actual, specific answer.]
+
+## Reproducible environment requirements
+
+[Devcontainer / equivalent, if used: what's pinned, what's preinstalled, what must NOT be baked
+into it (real credentials), what's documented separately for humans who provision/deploy for
+real. If parallel work is used, confirm the environment supports multiple isolated instances.]
+
+## Operational readiness (this project specifically)
+
+[Observability/monitoring approach, incident response, and rollback strategy — project- and
+technology-specific, resolved during setup rather than templated; see
+trellis/principles/08-security-and-boundaries.md#operational-readiness-is-a-project-specific-decision.
+A greenfield project may honestly say "not yet applicable — revisit before first real release,"
+but that should be a stated decision, not silence.]
+
+## Definition of Done
+
+See `[definition-of-done doc path]` — do not duplicate the checklist here; reference it.
+
+## Documentation requirements
+
+- **Permanent project knowledge (`[dir]`):** [list what belongs here for this project].
+- **Permanent process knowledge (`[dir]`):** role prompts, workflows, standards.
+- `AGENTS.md` stays a small entry point.
+- Write for a reader who has never seen the project.
+
+## Boundaries — never do these
+
+- [Project-specific list, derived from trellis/principles/08-security-and-boundaries.md — e.g.
+  "never deploy or touch real production infrastructure outside the operator role," "never
+  commit secrets," "never exceed the spec's scope without recording it first."]
+- Never let the validator rely on the implementer's own tests as evidence of correctness.
+- Never let the build team decide, on its own, that new scope is worth doing — that's the
+  stakeholder's call.
+
+## Handling ambiguity
+
+When the spec is unclear, conflicting, or looks incorrect: stop, record the question with
+options and a recommendation in `[open-questions log path]`. For low-risk gaps, pick a
+reasonable default, record it as an ADR, and continue. For anything architectural,
+security-relevant, or user-visible, surface it to the stakeholder and wait.
+
+## Reporting
+
+At every review checkpoint, produce a concise report: what changed, why, tests added and their
+results, decisions/ADRs, open questions, what's next.

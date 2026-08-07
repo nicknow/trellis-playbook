@@ -1,0 +1,42 @@
+<!--
+  Template: the knowledge-promotion workflow. See
+  trellis/principles/01-knowledge-architecture.md — this file restates that governing rule with
+  this project's actual directory names.
+-->
+
+# Workflow: knowledge promotion
+
+The rule, from `[knowledge-architecture doc path]`:
+
+> If future developers or future agents will benefit from a piece of information, commit it.
+> If the information is only useful while solving the current task, place it in scratch.
+
+`[scratch dir]` is disposable and excluded from version control except its own READMEs. Durable
+knowledge must never be stranded there.
+
+## Where knowledge goes
+
+| Kind of knowledge                                                              | Home                              |
+| -------------------------------------------------------------------------------- | ---------------------------------- |
+| How the software works: architecture, contracts, data model, behavior, decisions | `[permanent project knowledge dir]` |
+| Design system and accessibility standard (if this project has a designer function) | `[permanent project knowledge dir]` |
+| How to run/build/test/deploy: local loop, ops, runbook, manual checklists        | `[permanent project knowledge dir]` |
+| Process knowledge: role prompts, standards, workflows, process lessons           | `[permanent process knowledge dir]` |
+| Notes only useful for the current task                                           | `[scratch dir]/<role>/` (delete when done) |
+
+## How to promote
+
+1. When a discovery, decision, or convention would help the next contributor, write it into the
+   appropriate permanent-knowledge file **during** the slice — not reconstructed later from
+   scratch notes.
+2. Cross-link: reference related docs/ADRs; process knowledge references project knowledge, never
+   duplicates it.
+3. Record significant decisions as ADRs in `[adr dir]`, with citations for any external/platform
+   fact.
+4. Clean the corresponding scratch when the slice closes.
+
+## Anti-patterns
+
+- Leaving authoritative knowledge only in scratch (it's invisible to the next contributor).
+- Duplicating project knowledge into process knowledge, or vice versa (the two drift apart).
+- Copying scratch into a permanent doc wholesale (write for the reader, not the session).

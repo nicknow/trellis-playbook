@@ -1,0 +1,51 @@
+<!--
+  Template: project root entry point.
+  Conventionally named AGENTS.md, but any name your harness(es) reliably read first is fine —
+  keep it consistent. See trellis/principles/01-knowledge-architecture.md before filling this
+  in. Delete this comment block once filled in; keep the rest of the file SHORT — it routes,
+  it does not contain.
+-->
+
+# AGENTS.md
+
+This is **[PROJECT_NAME]**: [one or two sentences — what the system is and what it does]. This
+file is only an entry point — the real knowledge lives in the docs below.
+
+## Read first, in this order
+
+1. `[path to the authoritative spec / product description]` — what we build and why.
+2. `[path to your knowledge-architecture doc]` — how this repository is organized.
+3. `[path to your team-brief / process doc]` — the full process, roles, boundaries, review gates.
+
+## Where things live
+
+- `[permanent project knowledge dir, e.g. docs/]` — how the software works (architecture,
+  interfaces, operations, decisions). Commit anything a future developer or agent will benefit
+  from.
+- `[permanent process knowledge dir, e.g. .ai/ or process/]` — how anyone should work here
+  (role prompts, standards, workflows). References the above, never duplicates it.
+- `[disposable scratch dir, e.g. .work/]` — per-role disposable scratch, excluded from version
+  control except its own README files. Never a dependency between roles.
+
+## How to work here
+
+- Before writing code, read the standards and workflows referenced above.
+- Work in small, **test-first vertical slices**; run every quality gate (see
+  `[path to quality-gates / test-standards doc]`) before finishing.
+- [Any project-specific boundary — e.g. "the build team never touches production; deploy is
+  human-run only via the operator role" — see your security-and-boundaries doc.]
+- **Never commit secrets.** Only placeholders live in the repo; real values exist only in
+  whoever is authorized to hold them, at the point they're actually needed.
+
+## Boundaries
+
+- [Deploy / production-reaching actions and who is allowed to perform them.]
+- New capability ideas belong in the open-questions log / roadmap, never silently in code —
+  deciding whether to build them is the stakeholder function's call (see `[team-brief path]`).
+- Ambiguity: record it with options and a recommendation; surface anything architectural,
+  security-relevant, or user-visible to the stakeholder/human and wait.
+
+Unfamiliar term? See `[path to glossary, e.g. Trellis's principles/10-glossary.md]`.
+
+Process standard: this project follows [Trellis](<path-or-repo-url-to-this-standard>),
+last synced YYYY-MM-DD.

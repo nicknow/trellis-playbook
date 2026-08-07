@@ -1,0 +1,40 @@
+<!--
+  Template: test standards. See trellis/principles/05-testing-discipline.md before filling
+  this in — this file is that principle made concrete for this project's actual toolchain.
+-->
+
+# Test standards
+
+How we test [PROJECT_NAME]. [State the actual test runner/framework and how it's invoked.]
+
+## The rules
+
+1. **Test-first.** For every slice, write failing tests derived from the acceptance criteria
+   (happy path + edge cases + failure modes) *before* implementing. No behavior is added without
+   a test that exercises it.
+2. **No skipped/failing tests at the gate.** A slice is not done with a skipped or failing test,
+   or with reduced coverage, to move faster.
+3. **Validation is independent, including the tests.** The validator writes and runs its own
+   tests against the acceptance criteria — it does not read, borrow, or rely on the implementer's
+   test file. "The implementer's tests pass" is not validation evidence.
+4. **Emulate, don't mock, what can be run locally.** [Name this project's real dependencies —
+   a database, a queue, a filesystem — and state how each is exercised: real local instance vs.
+   in-memory equivalent vs. genuinely-necessary mock.]
+5. **Mock only what cannot be run locally.** [Name the specific external systems this applies
+   to — a paid third-party API, an identity provider, hardware — and how each is mocked.]
+6. **Infra seams that can't be unit-tested are not faked.** [Name them, and point to the manual
+   verification checklist that covers them instead — see `[operations doc path]`.]
+
+## Coverage targets
+
+- [Which parts of the system get the most coverage attention — usually the logic-heavy,
+  dependency-light code.]
+- The project coverage threshold is **[a specific X%, or an explicit "we deliberately do not use
+  a numeric coverage floor, because ..."]**, agreed during the architecture phase, reported by
+  `[coverage command]` if a number is used. Do not leave this bracket unresolved — see
+  trellis/principles/00-philosophy.md#every-open-parameter-gets-an-explicit-answer.
+
+## Where tests live
+
+- [Directory/naming convention for tests.]
+- [Any test-setup helpers — migration runners, fixture builders — and what they do.]

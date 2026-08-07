@@ -1,0 +1,45 @@
+<!--
+  Template: Definition of Done. See trellis/principles/03-workflow-lifecycle.md and
+  04-quality-gates.md. Keep this as an actual checklist — its value is in being checkable, not
+  in prose.
+-->
+
+# Definition of Done
+
+The checklists every slice and every phase must satisfy before it is reported as done.
+
+## Per slice
+
+- [ ] Acceptance criteria (from `[roadmap/plan doc path]`) are met.
+- [ ] Tests were written **first** (failing), then the minimum code to pass.
+- [ ] Full test suite is green — no failing or skipped tests.
+- [ ] Validator's tests are its **own** — written from the acceptance criteria, not read or
+      borrowed from the implementer's test file.
+- [ ] [Static-correctness gate command] clean.
+- [ ] [Style/lint gate command(s)] clean.
+- [ ] Coverage meets the agreed threshold ([coverage command]) — or the project's explicit,
+      recorded decision not to use a coverage number applies.
+- [ ] [If this project has a designer function: design/accessibility check done for any
+      user-facing change. Delete this line if not applicable.]
+- [ ] Performance/cost implications considered where this slice touches a budgeted concern (see
+      `[team-brief path]`'s performance/cost section) — or not applicable, explicitly.
+- [ ] Permanent project and process knowledge updated for the slice.
+- [ ] ADR written if a decision was made, or an existing one superseded with its project-wide
+      impact recorded.
+- [ ] Durable knowledge promoted out of scratch; slice scratch cleaned.
+- [ ] Commit follows this project's commit conventions, on a feature branch (or a parallel-work
+      branch merged per this project's parallel-work policy).
+- [ ] No forbidden action taken (see this project's boundaries doc — no production access, no
+      secrets, no scope creep).
+- [ ] Stakeholder sign-off received at whatever cadence was set during setup.
+
+## Per phase / overall
+
+- [ ] All slices done and reviewed.
+- [ ] End-to-end behaviors match the spec via the local dev/run loop.
+- [ ] Quickstart instructions work from a clean checkout.
+- [ ] [Operator/manual verification checklist exists, if this project has infra seams that
+      can't be automated.]
+- [ ] Operational readiness (observability, rollback) reflects whatever this project decided
+      during setup — see `[team-brief path]`'s operational-readiness section.
+- [ ] Open-questions log is empty or explicitly deferred with rationale.

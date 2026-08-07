@@ -1,0 +1,35 @@
+<!--
+  Template: the index/README for a project's permanent project-knowledge directory. See
+  trellis/principles/07-documentation-and-decisions.md#an-index-not-a-pile.
+-->
+
+# Documentation index (`[permanent project knowledge dir]`)
+
+`[dir]` answers **"how does the software work?"** — permanent, authoritative, committed
+knowledge for humans and agents. Process knowledge (how anyone should *work* here) lives in
+`[permanent process knowledge dir]` instead.
+
+| Path | Answers |
+| --- | --- |
+| `[guide/]` | How to use it — for the person actually using the finished system. |
+| `[spec path]` | What we are building — the authoritative spec; do not deviate without recording why. |
+| `[architecture/]` | How the pieces fit together: boundaries, data model, test strategy. |
+| `[api/ or interfaces/]` | Request/response or interface contracts. |
+| `[development/]` | How to run, build, test, and debug locally. |
+| `[operations/]` | Provisioning, release, observability/rollback approach, the manual
+verification checklist, the runbook. |
+| `[design/]` | The design system and accessibility standard, if this project has a designer
+function — otherwise omit this row. |
+| `[adr/]` | The decision log — see `templates/adr-template.md`. |
+
+## Terms you'll see throughout these docs
+
+[Define any project-specific vocabulary here — build-history labels, internal names for
+concepts, anything a newcomer would otherwise have to reverse-engineer from context.]
+
+## Writing rules
+
+- Write for a reader who has never seen the project. Explain *why*, not just *what*.
+- Anything durable discovered during work is promoted here from scratch — see
+  `[knowledge-promotion workflow path]`.
+- `[permanent process knowledge dir]` references these docs; it never duplicates them.

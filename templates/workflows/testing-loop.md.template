@@ -1,0 +1,44 @@
+<!--
+  Template: the testing loop. See trellis/principles/05-testing-discipline.md — this file is
+  that discipline restated with this project's actual commands and local-emulation choices.
+-->
+
+# Workflow: the testing loop
+
+The test-first discipline in practice. Applies to every slice.
+
+## Order of writing
+
+1. Read the slice's acceptance criteria; enumerate the cases:
+   - happy path;
+   - edge cases (boundaries, empties, collisions, unicode, casing — whatever applies to this
+     project's actual input space);
+   - failure modes (invalid input, missing dependencies, permission failures, malformed or
+     adversarial input).
+2. Write the failing tests — one assertion per meaningful behavior, named for the behavior, not
+   the implementation.
+3. Run them: **confirm they fail** (a test that passes before implementation either doesn't
+   exercise the behavior, or is redundant).
+4. Implement the minimum to pass; resist gold-plating beyond the criteria.
+5. Run the full suite + coverage; then hand to the validator role, which writes its **own** tests
+   from the acceptance criteria (never reading or relying on the implementer's test file) plus
+   independent edge/regression tests.
+
+## Gates (run before any slice closes)
+
+```
+[full test suite command]
+[coverage command]
+[static-correctness / type-check command]
+[lint command]
+[format-check command]
+```
+
+## Local emulation (this project)
+
+- [Dependency 1]: [how it's exercised locally — real local instance, in-memory equivalent, etc.]
+- [Dependency 2]: [same.]
+- [External system that can't run locally]: [what's mocked, and what specifically is asserted
+  about the mock's inputs/idempotency rather than trusting it blindly].
+- Infra seams that can't be unit-tested: extend `[operations doc path]`'s manual verification
+  checklist, never fake a test.

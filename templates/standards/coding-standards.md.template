@@ -1,0 +1,53 @@
+<!--
+  Template: coding standards. See trellis/principles/04-quality-gates.md. Every section below
+  should end up with concrete, project-specific content — delete any bracketed placeholder and
+  replace it, don't leave it generic.
+-->
+
+# Coding standards
+
+How we write [PROJECT_NAME] code. The spec is `[spec path]`; toolchain decisions and their
+rationale are the ADRs in `[adr dir]`.
+
+## Language & runtime
+
+- [Language, version, runtime target, module system — whatever was decided in the architecture
+  phase and recorded as an ADR.]
+- [Any strictness settings, e.g. strict type-checking mode.]
+- [Any dependency policy — what's allowed, what needs justification.]
+
+## Style & structure
+
+- [This project's structural preferences — function size/purity, module boundaries, what's
+  discouraged (e.g. heavy frameworks where a lighter approach suffices).]
+- Comments explain *why*, not *what*.
+- Formatted and linted automatically by [tool names]; both gates run before a slice is
+  considered finished — see [`04-quality-gates.md`](../../principles/04-quality-gates.md).
+
+## Behavior rules that follow from the spec
+
+- [Any contract the spec makes load-bearing — a URL scheme, a data layout, a config source —
+  that code must never silently reinterpret. Reference the spec section.]
+
+## Design & accessibility
+
+[If this project has a user-facing surface: point to the design system and accessibility
+standard the designer function owns — `[design system doc path]` — and state that UI code
+follows it. If this project has no user-facing surface, delete this section and say so in the
+architecture docs rather than leaving it silently absent.]
+
+## Safety
+
+- **Never commit secrets.** Placeholders only.
+- [Any project-specific execution boundary — e.g. "never call the live external API from build
+  code; tests and dev run against local emulation only."]
+- New capability ideas go to the open-questions log / roadmap, not silently into code.
+
+## Known correctness pitfalls
+
+<!--
+  Optional but valuable: this project's own list of language/framework footguns discovered the
+  hard way, phrased as a rule with the failure mode explained (not just "be careful"). Keep
+  entries here, don't let them live only in a fixed slice's ADR where the next contributor won't
+  find them.
+-->

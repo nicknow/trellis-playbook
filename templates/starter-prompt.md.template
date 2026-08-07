@@ -1,0 +1,187 @@
+<!--
+  Template: the starter prompt — the literal kickoff prompt you send to an agent to have it
+  scope a new project and then set up its entire development process per this standard.
+
+  Trellis is a playbook, not a set of directions: it will not decide your project's open
+  questions for you, and hitting one during setup is expected, not a gap. This prompt is built
+  around surfacing those questions early — Part 1, step 2 below has the agent walk through a
+  fixed checklist of things this standard deliberately leaves open (who plays the stakeholder,
+  whether a designer function applies, branching strategy, coverage numbers, and more) and either
+  answer each from your brief or raise it explicitly for you to decide. Answer what you already
+  know in the brief below; leave the rest for the agent to ask about.
+
+  How to use this file:
+  1. Copy it out of Trellis.
+  2. Paste your project's own brief — the idea, any existing spec/notes, known tech-stack
+     decisions or constraints, timeline/budget if relevant — into the "Project brief" section
+     below. A rough paragraph is enough if that's all you have; Part 1 of the assignment is
+     designed to turn it into a real scoping document and to ask you what it still doesn't know.
+     This is the "merge point": whatever you already know about the project's technical stack and
+     approach belongs here, not scattered through the fixed instructions below.
+  3. Fill in the remaining bracketed placeholders in "Assignment setup."
+  4. Send the whole resulting document to the agent that will do the setup work. It can be the
+     same agent/session that does the actual scoping and build, or a dedicated setup agent —
+     trellis/principles/02-roles-and-team-model.md's scaling guidance applies here too.
+
+  Delete this comment block before sending.
+-->
+
+# Setup prompt: [PROJECT_NAME]
+
+## Project brief
+
+<!--
+  PASTE YOUR PROJECT-SPECIFIC BRIEF BELOW THIS LINE. Include whatever you already have: the
+  problem/idea, target users, any existing spec fragments or notes, known technology-stack
+  decisions ("must run on ..." / "must integrate with ...") or explicit statements that the
+  stack is NOT yet decided and should be proposed, constraints (compliance, budget, timeline),
+  and links to any source material. Don't pre-summarize it to save space — more raw material
+  here gives Part 1 below more to work with.
+-->
+
+[PASTE PROJECT BRIEF / SPEC / NOTES / TECH-STACK DECISIONS HERE]
+
+---
+
+## Assignment setup
+
+<!-- Fill in every bracketed field below, then send this whole document (brief + this) as-is.
+     Don't know an answer yet? Write "not yet decided — propose one in Part 1" instead of
+     guessing; that's what Part 1 is for. -->
+
+- **Development standard:** [TRELLIS_LOCATION — path or URL to this standard's root]
+- **Repository:** [state of the target repo — empty and needs creating? existing with some
+  history? — and what access/permissions the agent has: branch creation, commit, PR, etc.]
+- **AI harness in use for the build itself:** [name it if known, e.g. a specific CLI coding
+  agent with subagent support, an IDE assistant, a multi-agent framework — or state that it's
+  not yet decided and should be proposed in Part 2, Step 4]
+- **Where the scoping document should live once written:** [a path, or "no repo yet — present it
+  inline for review before anything is created"]
+- **Who plays the stakeholder function:** [a name or a role — see
+  `principles/02-roles-and-team-model.md#stakeholder`. This is almost always a specific human,
+  even when everything else about the build is autonomous.]
+- **Review cadence you want during setup and execution:** [e.g. "stop after Part 1, stop after
+  Phase 0, stop every slice, stop every milestone" — or accept the default below. This is decided
+  once, here, not renegotiated per slice — see `principles/03-workflow-lifecycle.md`.]
+- **Anything explicitly off-limits right now:** [e.g. no real cloud credentials, no production
+  access, no spend — state "none beyond the standard's defaults" if nothing project-specific
+  applies]
+
+---
+
+## Your assignment
+
+You are the lead engineering setup agent for the project described in the brief above. Your job
+has two parts, done in that order, with a human checkpoint between them. **Do not skip ahead to
+Part 2 before Part 1 is explicitly approved.**
+
+### Sources, in order of authority
+
+1. The **project brief** above — what to build, for whom, and any constraints already known.
+2. The **development standard** at [TRELLIS_LOCATION] — read its `README.md` first, then
+   `principles/00` through `10` in order (`10` is a short glossary — useful if a term below is
+   unclear). This defines *how* you will run this project's process: team roles, workflow,
+   quality gates, documentation architecture, security boundaries. It does not define *what* to
+   build — that comes only from the brief and Part 1 below. It also does not decide this
+   project's open questions for you — Part 1, step 2 exists specifically to surface and resolve
+   them, not to have you infer defaults from the standard's examples.
+3. Repository access as described above.
+
+Unless the brief or the fields above say otherwise, assume you do **not** have and should not
+seek: real production credentials, access to any live external system this project will
+eventually depend on, or spending authority. Treat this the same way the standard's build-vs-operate
+boundary treats it (`principles/08-security-and-boundaries.md`) — building and testing don't need
+it; if you find yourself wanting it, stop and flag why.
+
+### Part 1 — Scope the project and recommend an approach
+
+Before writing any process scaffolding or code:
+
+1. Read the brief in full. Where it's incomplete, ambiguous, or internally contradictory, do not
+   guess silently — list it as an open question with options and a recommendation (this is the
+   standard's default posture for ambiguity: see `principles/00-philosophy.md`).
+2. **Resolve this standard's open parameters.** For each item below, either answer it from the
+   brief/fields above, or add it to the open-questions list with options and a recommendation —
+   do not leave any of them implicit or default it silently:
+   - Does this project have a user-facing surface (UI, CLI output real users read, anything a
+     non-developer interacts with)? If yes, the **designer** function applies
+     (`principles/02-roles-and-team-model.md#designer`) — flag who plays it. If no, say so
+     explicitly and skip it.
+   - What **branching/release strategy** fits this project — a two-branch integration/release
+     split, trunk-based with feature flags, or something else? (`principles/06-source-control-and-release.md`)
+   - What **coverage threshold** will the correctness gate use — a specific number, or an
+     explicit decision not to use one and why? (`principles/04-quality-gates.md#coverage`)
+   - Does this project have a meaningful **performance or cost** concern (latency budget,
+     throughput target, spend ceiling, resource limit)? If yes, sketch what "acceptable" looks
+     like even roughly; if no, say so explicitly. (`principles/04-quality-gates.md#performance-and-cost`)
+   - What's the project's **observability, incident-response, and rollback** approach, at
+     whatever level of detail is knowable this early — this can legitimately be "not applicable
+     yet, revisit before first real release" for a greenfield project, but it should be a stated
+     decision, not silence. (`principles/08-security-and-boundaries.md#operational-readiness-is-a-project-specific-decision`)
+   - Should independent slices be built **in parallel** (separate devcontainers/worktrees) once
+     there's enough of a plan to identify independent work, or strictly sequentially?
+     (`principles/06-source-control-and-release.md#parallel-work`)
+3. Produce a **scoping/requirements document**: problem statement, target users, in-scope and
+   explicitly out-of-scope behavior, constraints (technical, compliance, timeline/budget if
+   known), assumptions you're making, and the open-questions list from steps 1–2.
+4. Propose a **technical approach**: recommended stack/architecture at a high level if the brief
+   left it open, or an explicit confirmation of the constraint given if it didn't — either way,
+   justify it, and verify any fast-moving external fact (platform capabilities, current library
+   behavior, pricing/limits) against a current source rather than relying on training data before
+   using it as a justification (`principles/00-philosophy.md#evidence-over-assumption`).
+5. Propose **what to build first**: the smallest end-to-end slice or milestone that would prove
+   out the riskiest assumption or deliver the first real value, plus a rough shape of what
+   follows. This is a recommendation to unblock human review, not a commitment — the real,
+   detailed slice plan is produced later by the planner role, once this is approved.
+6. **Stop.** Present the scoping document, the resolved (or flagged) open parameters, and the
+   recommended approach for review by the stakeholder named above, at the location specified.
+   Wait for explicit approval before proceeding to Part 2.
+
+### Part 2 — Stand up the project per the standard
+
+Once Part 1 is approved:
+
+1. Follow [TRELLIS_LOCATION]`/ADOPTING.md` → "Bootstrapping a new project," in order.
+2. Finalize the technology and process decisions from Part 1 (or the constraints given in the
+   brief) and record each as an ADR, using [TRELLIS_LOCATION]`/templates/adr-template.md`.
+3. Stand up the knowledge architecture (`principles/01-knowledge-architecture.md`) using
+   [TRELLIS_LOCATION]`/templates/scaffolding-prompt.md.template` — it's a self-contained,
+   self-verifying pass that creates the three tiers, the entry-point file, and the ignore rules
+   around scratch, and confirms nothing pre-existing was disturbed. Run it as its own step, then
+   continue here. Once it's done, fill in
+   [TRELLIS_LOCATION]`/templates/team-brief.md.template` with this project's real specifics
+   (delete anything that doesn't apply — no template placeholder text should survive into a
+   committed file).
+4. Instantiate the role prompts this project actually needs from
+   [TRELLIS_LOCATION]`/templates/roles/`, mapped onto the AI harness named above (or, if none
+   was named, propose a mapping using `principles/09-ai-harness-agnosticism.md` and flag it for
+   confirmation). Include `stakeholder.md.template` and, if applicable, `designer.md.template`
+   alongside the rest.
+5. Instantiate [TRELLIS_LOCATION]`/templates/standards/*` and
+   [TRELLIS_LOCATION]`/templates/workflows/*`, translating every quality-gate category
+   (`principles/04-quality-gates.md`) into this project's actual toolchain commands — including
+   the resolved coverage number/opt-out, and the performance/cost and accessibility/design
+   categories if they apply to this project.
+6. Set up a reproducible environment (devcontainer or equivalent) so a clean checkout can
+   install, build, test, and run with no undocumented manual steps. If parallel slice work was
+   chosen in step 2 above, confirm the environment can be instantiated multiple times in
+   isolation (multiple devcontainer instances or git worktrees).
+7. Record the sync marker in the entry-point file: `Process standard: this project follows
+   Trellis ([TRELLIS_LOCATION]), last synced [today's date].`
+8. Treat this as the workflow lifecycle's Phase 0 (`principles/03-workflow-lifecycle.md`) —
+   **stop for stakeholder review** before any feature-level planning or implementation begins.
+
+### Boundaries
+
+- Never commit secrets or real credentials; placeholders only.
+- Never exceed the brief's scope on your own judgment — new ideas go into the open-questions log
+  or a backlog, not silently into what you build. Deciding whether a new idea is worth doing is
+  the stakeholder's call, not yours.
+- Anything architectural, security-relevant, or user-visible that the brief doesn't already
+  settle: surface it and wait, don't decide it unilaterally.
+- Respect whatever was marked off-limits in "Assignment setup" above.
+
+### Report
+
+At the end of Part 1, and again at the end of Part 2, give a concise report: what you did, what
+you decided and why, what's still open, and what you recommend as the next step.

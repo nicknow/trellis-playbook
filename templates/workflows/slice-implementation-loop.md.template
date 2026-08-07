@@ -1,0 +1,39 @@
+<!--
+  Template: the per-slice implementation loop. See trellis/principles/03-workflow-lifecycle.md
+  — this file is that loop restated with this project's actual role names and doc paths filled
+  in, so it can be referenced directly by the team-brief and role prompts.
+-->
+
+# Workflow: the per-slice implementation loop
+
+How a slice gets built, from acceptance criteria to a closed, committed, reviewed slice.
+
+## The loop
+
+1. **Restate** the slice's acceptance criteria from `[roadmap/plan doc path]` (happy path, edge
+   cases, failure modes, and any performance/cost or design/accessibility implications).
+2. **Write failing tests** covering those criteria.
+3. **Implement** the minimum code to pass. If this slice is running in parallel with others, do
+   it in its own isolated workspace (devcontainer instance / git worktree) on its own branch.
+4. **Run gates:** [list this project's actual gate commands] — all green.
+5. **Validate** ([validator role]): independent check against the spec using tests it writes
+   itself — never reading or relying on the implementer's tests — plus extra edge/regression
+   tests and checklist additions for anything that can't be automated.
+6. **Review** ([reviewer role]): quality, standards, docs updated, knowledge promoted, scratch
+   clean, boundaries respected, and (if applicable) the designer's check confirmed → verdict.
+7. **Commit** on a feature branch (per this project's commit conventions); clean the slice's
+   scratch.
+8. **Report** the slice outcome to the stakeholder; pause at the cadence decided during setup —
+   that cadence isn't renegotiated slice by slice.
+
+## Rules
+
+- Do not start the next slice until the current one closes (all steps green, verdict approve) —
+  except independent slices explicitly approved for parallel implementation, each judged on its
+  own closure.
+- Never mark a slice done with a failing or skipped test, or reduced coverage.
+- Each role works only in its own scratch workspace; no role depends on another's scratch.
+- The validator's tests are always its own — borrowing or reading the implementer's test file
+  defeats the independence this loop depends on.
+- Anything durable discovered during the slice is promoted (see
+  `[knowledge-promotion workflow path]`) before the slice closes.

@@ -1,0 +1,54 @@
+<!--
+  Template: commit conventions. See trellis/principles/06-source-control-and-release.md.
+-->
+
+# Commit conventions
+
+[This project uses / State your chosen convention — Conventional Commits is a solid default if
+you have no existing preference.] Small commits; one coherent change each; the message explains
+*why* when the diff doesn't.
+
+## Format
+
+```
+<type>(<scope>): <short summary>
+
+<optional body — why, not just what>
+```
+
+Types: [list the types this project uses — e.g. `feat`, `fix`, `chore`, `docs`, `test`,
+`refactor`, `perf`, `build`, `ci`, `style`].
+
+Scopes (examples): [list a few real scope names from this project's actual module/feature
+boundaries].
+
+Examples:
+
+- `[a real or representative example commit message for this project]`
+- `[another one]`
+
+## Branching
+
+- Feature branches per unit of work: `feat/<short-name>`, `fix/<short-name>`,
+  `chore/<short-name>`, branched from `[integration branch name]`.
+- Commit on the branch; open a PR (or equivalent) into `[integration branch name]` — [state your
+  CI/gate requirement]. Do not force-push a shared branch.
+- **This project's branching/release strategy:** [state which shape was chosen and why — e.g.
+  "two branches: `[integration branch name]` is where in-flight work lands and gets exercised
+  together, `[release branch name]` only moves when a human deliberately promotes integration
+  into it; never commit or merge directly to `[release branch name]`" or "trunk-based: everything
+  merges to `[main branch name]` behind feature flags; a human flips the flag to release." See
+  [`06-source-control-and-release.md`](../../principles/06-source-control-and-release.md) — this
+  standard doesn't mandate one shape, but the project's choice must be recorded here, not left
+  implicit.]
+- One slice = one branch + one (or a few, logically grouped) commits. Independent slices approved
+  for parallel work each get their own branch in their own isolated workspace — see
+  [`06-source-control-and-release.md`](../../principles/06-source-control-and-release.md#parallel-work).
+
+## Hygiene
+
+- Stage only intended files; never commit secrets, local environment files, scratch content, or
+  build/tooling state that shouldn't be tracked.
+- A commit that touches code must not leave the suite red, static analysis failing, or
+  formatting dirty.
+- Update docs in the same slice's commits (docs travel with the behavior they describe).
