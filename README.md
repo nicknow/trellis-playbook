@@ -1,3 +1,10 @@
+<table>
+<tr>
+<td width="33%">
+  <img src="assets/trellis-icon.png" alt="Trellis" width="100%">
+</td>
+<td width="67%">
+
 # Trellis
 
 Trellis is a technology-agnostic, harness-agnostic standard for how a software project is
@@ -5,6 +12,10 @@ planned, architected, built, tested, reviewed, released, and maintained — by a
 and AI agents. It is written to be **read once by whoever is setting up a project's process**,
 then translated into that project's own concrete, project-specific artifacts. It is not a
 library, a framework, or something a project depends on at runtime.
+
+</td>
+</tr>
+</table>
 
 This standard was distilled from a real project's development process, after that process
 carried the project all the way from a blank repository through active brownfield maintenance
