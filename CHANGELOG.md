@@ -21,7 +21,7 @@ Entries above `v1.0.0` predate this versioning scheme and carry no version numbe
 only ever dated. If you adopted Trellis before `v1.0.0` existed, treat `v1.0.0` as your
 retroactive "last synced" marker (see that entry's "Action for adopting projects" note).
 
-## Unreleased — Adopt semver versioning for the standard, tracked via git tags
+## v1.0.0 — 2026-08-08 — Adopt semver versioning for the standard, tracked via git tags
 
 The re-sync marker in [`ADOPTING.md`](ADOPTING.md) previously keyed off dates alone. That broke
 down in practice: this changelog already had two entries sharing the same date, so "dated after
