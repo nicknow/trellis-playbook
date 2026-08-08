@@ -47,8 +47,9 @@ genuinely local, say that explicitly too, so a future reader doesn't have to re-
 ## An index, not a pile
 
 Permanent project documentation should be discoverable through a short index describing what each
-section answers (architecture, interfaces, operations, decisions, and whatever else the project
-needs) — see [`templates/docs-index-README.md.template`](../templates/docs-index-README.md.template).
+section answers (architecture, interfaces, operations, this project's own security posture,
+decisions, and whatever else the project needs) — see
+[`templates/docs-index-README.md.template`](../templates/docs-index-README.md.template).
 A pile of undated, unindexed files is functionally close to no documentation at all, because
 nothing tells a reader where to start or what's current.
 

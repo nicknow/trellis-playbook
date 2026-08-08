@@ -20,6 +20,9 @@ knowledge for humans and agents. Process knowledge (how anyone should *work* her
 verification checklist, the runbook. |
 | `[design/]` | The design system and accessibility standard, if this project has a designer
 function — otherwise omit this row. |
+| `[security/]` | This project's own security facts: what data it handles, its trust boundaries,
+its auth model, anything a contributor must know before touching a sensitive surface. Distinct
+from `principles/08`'s universal build/operate rules, which live in process knowledge, not here. |
 | `[adr/]` | The decision log — see `templates/adr-template.md`. |
 
 ## Terms you'll see throughout these docs

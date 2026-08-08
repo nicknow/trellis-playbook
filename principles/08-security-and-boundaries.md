@@ -63,6 +63,18 @@ first real release") rather than silently defaulting to nothing. Once decided, t
 operator function is who owns running them for real (see
 [`02-roles-and-team-model.md`](02-roles-and-team-model.md#deployer--operator)).
 
+## This project's own security facts belong in permanent project knowledge
+
+Everything above is a process rule that holds for every project this standard applies to. What it
+deliberately doesn't cover — because it's different for every system — is this project's actual
+security facts: what data it handles, its trust boundaries, its authentication/authorization
+model, anything a contributor needs to know before touching a sensitive surface. Record those in
+permanent project knowledge, not here (see
+[`templates/docs-index-README.md.template`](../templates/docs-index-README.md.template)) — they
+change as the system does, and belong next to the code they describe, not duplicated into process
+documentation (see
+[`01-knowledge-architecture.md`](01-knowledge-architecture.md#anti-patterns)).
+
 ## Scope discipline is a security property too
 
 Work that quietly exceeds the scope of what was asked isn't just a process problem (see

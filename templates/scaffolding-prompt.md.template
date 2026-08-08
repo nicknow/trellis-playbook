@@ -48,13 +48,35 @@ replacement for understanding why it's structured this way.
    If one already exists, integrate rather than replace — preserve anything in it that's still
    accurate.
 4. **Add a short index/README at the root of each tier** stating what it answers and what
-   belongs in it (see [TRELLIS_LOCATION]`/templates/docs-index-README.md.template` for the
-   permanent-project-knowledge tier as a starting point; the process-knowledge and scratch tiers
-   need only a few sentences each).
+   belongs in it.
+   - **Permanent project knowledge:** see
+     [TRELLIS_LOCATION]`/templates/docs-index-README.md.template` as a starting point.
+   - **Permanent process knowledge:** mirror this standard's own `templates/` layout — a
+     `roles/` subdirectory for role prompts (one file per function, see
+     [TRELLIS_LOCATION]`/templates/roles/`), a `standards/` subdirectory for coding/test/commit
+     standards (see [TRELLIS_LOCATION]`/templates/standards/`), and a `workflows/` subdirectory
+     for repeatable procedures (see [TRELLIS_LOCATION]`/templates/workflows/`). Its own
+     index/overview is [TRELLIS_LOCATION]`/templates/team-brief.md.template`, once instantiated;
+     a few sentences pointing to each subdirectory is enough beyond that. This tier references
+     permanent project knowledge — it never duplicates it (see
+     `principles/01-knowledge-architecture.md#anti-patterns`).
+   - **Disposable scratch:** a few sentences are enough — what it's for, that each role or
+     session gets its own subdirectory, and that nothing outside it depends on those contents
+     (see `principles/01-knowledge-architecture.md#the-three-tiers`).
 5. **Update this repository's ignore rules** (`.gitignore` or equivalent) so the scratch tier
    (and any cache/log subdirectories under it) is excluded from version control, **except** the
    index/README files created in step 4 — those should stay tracked so the tier's purpose is
-   documented even though its contents aren't.
+   documented even though its contents aren't. For a Git repository this is typically an
+   ignore-then-negate pair; for a scratch tier at `.work/` with one subdirectory per role, that
+   looks like:
+
+   ```gitignore
+   .work/*
+   !.work/README.md
+   !.work/*/README.md
+   ```
+
+   Adjust the paths to whatever this project actually named the tier.
 6. **Do not** create role prompts, standards, or workflow documents in this pass — that's a
    separate, deliberate step (see [TRELLIS_LOCATION]`/templates/starter-prompt.md.template` Part
    2 or `ADOPTING.md`), and mixing it into pure structural scaffolding makes both harder to
