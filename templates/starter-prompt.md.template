@@ -167,7 +167,8 @@ Once Part 1 is approved:
    chosen in step 2 above, confirm the environment can be instantiated multiple times in
    isolation (multiple devcontainer instances or git worktrees).
 7. Record the sync marker in the entry-point file: `Process standard: this project follows
-   Trellis ([TRELLIS_LOCATION]), last synced [today's date].`
+   Trellis ([TRELLIS_LOCATION]), last synced [version at the top of Trellis's CHANGELOG.md,
+   e.g. vX.Y.Z].`
 8. Treat this as the workflow lifecycle's Phase 0 (`principles/03-workflow-lifecycle.md`) —
    **stop for stakeholder review** before any feature-level planning or implementation begins.
 

@@ -1,11 +1,54 @@
 # Changelog
 
-A dated log of changes to the standard itself — not to any project that adopts it. This is what
-an adopting project reads when re-syncing: everything dated after the project's own "last synced"
-date (see [`ADOPTING.md`](ADOPTING.md)) is new to them.
+A versioned, dated log of changes to the standard itself — not to any project that adopts it.
+This is what an adopting project reads when re-syncing: everything versioned after the project's
+own "last synced" version (see [`ADOPTING.md`](ADOPTING.md)) is new to them.
 
-Entries are dated `YYYY-MM-DD` and written for someone deciding whether a change affects their
-project, not for someone reading the diff. State what changed, why, and who needs to act on it.
+Entries are headed `## vMAJOR.MINOR.PATCH — YYYY-MM-DD — Title`, written for someone deciding
+whether a change affects their project, not for someone reading the diff. State what changed,
+why, and who needs to act on it. **PATCH is always `0`** — reserved, unused for now. **MAJOR**
+means breaking or action-required in a way a project can't safely defer past its next re-sync;
+**MINOR** is every other substantive change, and is the default.
+
+To add an entry, don't pick the version yourself — head it `## Unreleased — Title` (or
+`## Unreleased (major) — Title` for a deliberate breaking change) and push to `main`. A GitHub
+Actions workflow ([`.github/workflows/tag-changelog.yml`](.github/workflows/tag-changelog.yml))
+stamps the real version and date, commits that, and pushes the matching tag — see that file and
+[`.github/scripts/stamp_changelog_version.py`](.github/scripts/stamp_changelog_version.py) for
+exactly how the version is computed.
+
+Entries above `v1.0.0` predate this versioning scheme and carry no version number — they were
+only ever dated. If you adopted Trellis before `v1.0.0` existed, treat `v1.0.0` as your
+retroactive "last synced" marker (see that entry's "Action for adopting projects" note).
+
+## Unreleased — Adopt semver versioning for the standard, tracked via git tags
+
+The re-sync marker in [`ADOPTING.md`](ADOPTING.md) previously keyed off dates alone. That broke
+down in practice: this changelog already had two entries sharing the same date, so "dated after
+X" was ambiguous without also reading file position. Switching to a monotonic semver version,
+tracked as GitHub tags, removes that ambiguity and lets an adopting project tell at a glance
+whether unsynced changes are informational (MINOR) or something they need to act on before their
+next re-sync (MAJOR).
+
+- **Versioning scheme**: 3-part semver tags (`vMAJOR.MINOR.PATCH`), PATCH always `0` and
+  reserved/unused for now. MINOR bumps automatically; MAJOR is a deliberate human choice, made by
+  writing `(major)` in a new entry's `## Unreleased` heading — not a separate manual tagging step.
+- **New automation**: [`.github/workflows/tag-changelog.yml`](.github/workflows/tag-changelog.yml)
+  stamps `## Unreleased [...]` headings with the next version and today's date on push to `main`,
+  commits the change, and pushes the tag. Commits that touch `CHANGELOG.md` without an
+  `## Unreleased` heading (typo fixes, reformatting) are a no-op — only a real changelog entry
+  moves the version.
+- **`ADOPTING.md`** ("Bootstrapping," step 6, and "Re-syncing," steps 1/2/5) now records and
+  compares the sync marker as `vX.Y.Z` instead of `YYYY-MM-DD`.
+- **`templates/AGENTS.md.template`**'s sync-marker line now reads "last synced vX.Y.Z".
+- This entry is itself the first one tagged under the new scheme — since no tag exists yet when
+  the automation above first runs, it becomes the baseline `v1.0.0`.
+
+**Action for adopting projects:** on your next re-sync, replace whatever date you have recorded
+as "last synced" with `v1.0.0` (this entry), then continue the re-sync procedure in `ADOPTING.md`
+from there — read every entry versioned after `v1.0.0`, which today is none, so there is nothing
+further to triage yet. Update your `AGENTS.md`'s sync-marker line to the new `vX.Y.Z` format at
+the same time.
 
 ## 2026-08-07 — Named "Trellis"
 
@@ -131,5 +174,6 @@ Established in this initial version:
   in `principles/03` and the bootstrap procedure in `ADOPTING.md` now call out this
   non-destructive, retrofit-safe case explicitly.
 
-**Action for adopting projects:** none — this is the baseline. Projects bootstrapping from
-scratch should treat this date as their initial "last synced" date (see `ADOPTING.md`).
+**Action for adopting projects:** none — this is the baseline. (Superseded by `v1.0.0` above:
+this predates the versioning scheme, and projects bootstrapping today should record `v1.0.0`, not
+a date, as their initial "last synced" marker — see `ADOPTING.md`.)

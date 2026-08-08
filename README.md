@@ -57,7 +57,7 @@ built around asking exactly these questions up front.
 | [`principles/`](principles/) | **Why and what.** The standard itself — durable, project-agnostic reasoning and rules. Read these in numeric order the first time through. |
 | [`templates/`](templates/)   | **How, as a starting point.** Copyable, fill-in-the-blank files an adopting project instantiates into its own repository and then edits until they stop being generic. |
 | [`ADOPTING.md`](ADOPTING.md) | The step-by-step procedure: bootstrapping a new project from this standard, and re-syncing an existing one after the standard changes. |
-| [`CHANGELOG.md`](CHANGELOG.md) | A dated log of what changed in the standard itself and why — the thing you diff against when re-syncing. |
+| [`CHANGELOG.md`](CHANGELOG.md) | A dated, versioned log of what changed in the standard itself and why — the thing you diff against when re-syncing. |
 
 ## The principles, at a glance
 

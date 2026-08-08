@@ -51,15 +51,15 @@ at step 1.
    `templates/workflows/`, translating every gate category in
    [`principles/04`](principles/04-quality-gates.md) into your actual toolchain's commands.
 6. **Record the sync marker.** In the project's `AGENTS.md` (or wherever its process entry point
-   lives), add a line stating which dated version of this standard it follows:
+   lives), add a line stating which version of this standard it follows:
 
    ```markdown
    Process standard: this project follows [Trellis](<path-or-repo-url>), last synced
-   YYYY-MM-DD.
+   vX.Y.Z.
    ```
 
-   Use today's date, or the date of the most recent entry in this standard's `CHANGELOG.md` at
-   the time you're bootstrapping — whichever you actually read up through.
+   Use the version at the top of this standard's `CHANGELOG.md` (equivalently, its latest git
+   tag) at the time you're bootstrapping — whichever version you actually read up through.
 7. **Run the lifecycle from `principles/03`**, starting at its Phase 0 (scaffolding), before any
    feature work begins.
 
@@ -74,13 +74,15 @@ the standard's *reasoning* implies a change to the project's *artifacts*.
 Triggered when a human or an agent is told "the standard has been updated, bring this project's
 process in line with it" — or, proactively, at whatever cadence the project chooses to check.
 
-1. **Find the project's current sync marker** (the "last synced YYYY-MM-DD" line from step 6
-   above). If none exists, treat the project as never having formally adopted the standard and
-   fall back to Bootstrapping, using the current state of the project's process artifacts as the
-   starting point instead of the templates.
-2. **Read every `CHANGELOG.md` entry dated after the sync marker.** Each entry names what changed
-   in the standard and why. Entries dated on or before the sync marker are already reflected (or
-   were deliberately not adopted, which should already be recorded — see step 5).
+1. **Find the project's current sync marker** (the "last synced vX.Y.Z" line from step 6 above).
+   If none exists, treat the project as never having formally adopted the standard and fall back
+   to Bootstrapping, using the current state of the project's process artifacts as the starting
+   point instead of the templates.
+2. **Read every `CHANGELOG.md` entry versioned after the sync marker** — starting from the top of
+   the file and working down until you reach the entry matching your recorded version. Each entry
+   names what changed in the standard and why. Entries at or before the sync marker's version are
+   already reflected (or were deliberately not adopted, which should already be recorded — see
+   step 5).
 3. **For each new entry, decide and record one of:**
    - **Adopt** — update the project's own artifacts (its `AGENTS.md`, standards, workflows, role
      prompts, or docs structure) to reflect the change. Reference the entry so a future re-sync
@@ -94,8 +96,8 @@ process in line with it" — or, proactively, at whatever cadence the project ch
 4. **Apply the adopted changes as normal project work**: this is not exempt from the project's own
    process. If the project's workflow requires tests, review, or a human gate for
    architecture-level or process-level changes, this goes through the same gate.
-5. **Update the sync marker** to today's date (or the date of the last `CHANGELOG.md` entry you
-   actually processed) once every new entry has been triaged.
+5. **Update the sync marker** to the version of the last `CHANGELOG.md` entry you actually
+   processed (equivalently, the latest git tag at the time) once every new entry has been triaged.
 6. **Record the re-sync itself** wherever the project keeps a durable log of process decisions
    (an ADR, a dated note in its process docs) — what was adopted, what wasn't, and why. This is
    what makes the *next* re-sync fast: it only has to read entries after this one.

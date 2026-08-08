@@ -1,0 +1,48 @@
+name: Tag changelog release
+
+# Auto-tags CHANGELOG.md entries with a semver version. A contributor adds an entry
+# headed "## Unreleased — Title" (or "## Unreleased (major) — Title" for a
+# deliberate breaking/major change); this workflow stamps it with the next version
+# and today's date, commits that back to main, and pushes the matching tag. Commits
+# that touch CHANGELOG.md without an "## Unreleased" heading (typo fixes, etc.) are
+# a no-op — see .github/scripts/stamp_changelog_version.py.
+#
+# Caveat: this pushes directly to `main` using the default GITHUB_TOKEN, which only
+# works because this repo has no branch-protection rule requiring PR review. If that
+# changes, this workflow needs to change with it (e.g. run inside the PR instead of
+# after merge).
+
+on:
+  push:
+    branches: [main]
+    paths: [CHANGELOG.md]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tag-changelog
+  cancel-in-progress: false
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Stamp version if an Unreleased entry is present
+        run: python3 .github/scripts/stamp_changelog_version.py
+
+      - name: Commit stamped CHANGELOG.md and push tag
+        if: env.NEW_VERSION != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          git commit -m "chore: stamp ${NEW_VERSION}"
+          git tag "${NEW_VERSION}"
+          git push origin HEAD:main
+          git push origin "${NEW_VERSION}"
