@@ -37,6 +37,19 @@ file is only an entry point — the real knowledge lives in the docs below.
 - **Never commit secrets.** Only placeholders live in the repo; real values exist only in
   whoever is authorized to hold them, at the point they're actually needed.
 
+## Multi-agent coordination
+
+- Each agent or role works in its own subdirectory under `[scratch dir]` (e.g.,
+  `.work/architect/`, `.work/implementer/`). Do not read or modify another role's scratch.
+- Handoffs between roles happen through committed permanent-knowledge tiers — never through one
+  role reading another's scratch. A prior role's output is promoted to a permanent tier before
+  the next role starts relying on it.
+- Temporary decisions that turn out to be permanent must be promoted to committed documentation
+  before the slice closes — see `[knowledge-promotion workflow path]`.
+- Prefer updating an existing committed document over creating a parallel one on the same topic.
+- Remove your scratch when the slice closes; do not leave obsolete working files behind.
+- See `[team-brief path]` for the full role list and their scratch directories.
+
 ## Boundaries
 
 - [Deploy / production-reaching actions and who is allowed to perform them.]

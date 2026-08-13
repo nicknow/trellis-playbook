@@ -123,9 +123,26 @@ See `[definition-of-done doc path]` — do not duplicate the checklist here; ref
 ## Documentation requirements
 
 - **Permanent project knowledge (`[dir]`):** [list what belongs here for this project].
-- **Permanent process knowledge (`[dir]`):** role prompts, workflows, standards.
+- **Permanent process knowledge (`[dir]`):** role prompts (`roles/`), standards (`standards/`),
+  workflows (`workflows/`). If the project uses reusable prompts not tied to a specific role,
+  add a `prompts/` subdirectory here.
 - `AGENTS.md` stays a small entry point.
 - Write for a reader who has never seen the project.
+
+## Agent behavior
+
+These rules apply to all agents working in this repository:
+
+- **Prefer modifying existing committed documents over creating parallel ones** for the same
+  topic — duplicates drift apart and one will go stale.
+- **Promote durable knowledge during the slice that discovers it**, not in a later cleanup
+  pass — see `[knowledge-promotion workflow path]`.
+- **Never reference ignored files as authoritative.** If a scratch file holds load-bearing
+  information, it belongs in a permanent tier first.
+- **Clean your scratch subdirectory when the slice closes.** Obsolete working files are noise
+  for the next contributor.
+- **Never read or depend on another role's scratch.** Handoffs happen only through committed
+  permanent tiers.
 
 ## Boundaries — never do these
 

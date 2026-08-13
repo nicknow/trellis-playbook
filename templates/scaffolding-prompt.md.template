@@ -55,20 +55,22 @@ replacement for understanding why it's structured this way.
      `roles/` subdirectory for role prompts (one file per function, see
      [TRELLIS_LOCATION]`/templates/roles/`), a `standards/` subdirectory for coding/test/commit
      standards (see [TRELLIS_LOCATION]`/templates/standards/`), and a `workflows/` subdirectory
-     for repeatable procedures (see [TRELLIS_LOCATION]`/templates/workflows/`). Its own
-     index/overview is [TRELLIS_LOCATION]`/templates/team-brief.md.template`, once instantiated;
-     a few sentences pointing to each subdirectory is enough beyond that. This tier references
-     permanent project knowledge — it never duplicates it (see
+     for repeatable procedures (see [TRELLIS_LOCATION]`/templates/workflows/`). If the project
+     uses reusable prompts not tied to a specific role function (generation, migration, review,
+     or testing prompts that are committed and reusable across sessions), add an optional
+     `prompts/` subdirectory for them here. The tier's own index/overview is
+     [TRELLIS_LOCATION]`/templates/team-brief.md.template`, once instantiated; a few sentences
+     pointing to each subdirectory is enough beyond that. This tier references permanent project
+     knowledge — it never duplicates it (see
      `principles/01-knowledge-architecture.md#anti-patterns`).
    - **Disposable scratch:** a few sentences are enough — what it's for, that each role or
      session gets its own subdirectory, and that nothing outside it depends on those contents
      (see `principles/01-knowledge-architecture.md#the-three-tiers`).
 5. **Update this repository's ignore rules** (`.gitignore` or equivalent) so the scratch tier
-   (and any cache/log subdirectories under it) is excluded from version control, **except** the
-   index/README files created in step 4 — those should stay tracked so the tier's purpose is
-   documented even though its contents aren't. For a Git repository this is typically an
-   ignore-then-negate pair; for a scratch tier at `.work/` with one subdirectory per role, that
-   looks like:
+   is excluded from version control, **except** the index/README files created in step 4 —
+   those should stay tracked so the tier's purpose is documented even though its contents
+   aren't. For a Git repository this is typically an ignore-then-negate pair; for a scratch
+   tier at `.work/` with one subdirectory per role, that looks like:
 
    ```gitignore
    .work/*
@@ -76,7 +78,18 @@ replacement for understanding why it's structured this way.
    !.work/*/README.md
    ```
 
-   Adjust the paths to whatever this project actually named the tier.
+   Also exclude any cache or log directories that AI tools write to within the permanent
+   process knowledge tier — these are transient artifacts, not committed knowledge. For a
+   process knowledge tier at `.ai/`, that looks like:
+
+   ```gitignore
+   .ai/cache/
+   .ai/logs/
+   ```
+
+   Adjust all paths to whatever this project actually named its tiers. If the process
+   knowledge tier uses a different name or the project does not produce AI tool output of this
+   kind, omit those entries.
 6. **Do not** create role prompts, standards, or workflow documents in this pass — that's a
    separate, deliberate step (see [TRELLIS_LOCATION]`/templates/starter-prompt.md.template` Part
    2 or `ADOPTING.md`), and mixing it into pure structural scaffolding makes both harder to

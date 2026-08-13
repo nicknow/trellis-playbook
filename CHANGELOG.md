@@ -21,6 +21,42 @@ Entries above `v1.0.0` predate this versioning scheme and carry no version numbe
 only ever dated. If you adopted Trellis before `v1.0.0` existed, treat `v1.0.0` as your
 retroactive "last synced" marker (see that entry's "Action for adopting projects" note).
 
+## Unreleased — Prompts subdirectory, cache/log gitignore guidance, multi-agent coordination, and agent behavior rules
+
+Driven by a comparison of Trellis against a widely-used workspace-scaffolding prompt for
+AI-assisted projects. Four gaps were identified — none affecting core principles, all additive
+to existing templates — and resolved:
+
+- **`prompts/` subdirectory in permanent process knowledge** (`templates/scaffolding-prompt.md.template`,
+  `templates/team-brief.md.template`): Trellis named `roles/`, `standards/`, and `workflows/`
+  as process-knowledge subdirectories but had no home for reusable prompts that aren't tied to
+  a specific role function (generation, migration, review, and testing prompts). Added `prompts/`
+  as an optional subdirectory in both templates, alongside the existing three.
+
+- **Cache and log gitignore guidance** (`templates/scaffolding-prompt.md.template`): The
+  scaffolding prompt's gitignore step covered the scratch tier but said nothing about AI-tool
+  cache and log directories within the process knowledge tier. Added explicit gitignore examples
+  for `[process-knowledge-dir]/cache/` and `[process-knowledge-dir]/logs/`.
+
+- **Multi-agent coordination section in `AGENTS.md`** (`templates/AGENTS.md.template`): The
+  concrete multi-agent rules — per-role scratch subdirectories, no cross-scratch reading,
+  handoffs only through committed tiers, scratch cleanup on slice close — were derivable from
+  `principles/01` and `principles/02` but weren't surfaced in the entry-point file where agents
+  actually read them. Added a "Multi-agent coordination" section to the template.
+
+- **Agent behavior rules in team-brief** (`templates/team-brief.md.template`): Rules such as
+  "prefer modifying existing docs over creating parallel ones" and "never reference ignored files
+  as authoritative" existed in principles and workflow templates but weren't assembled in one
+  place an agent reads on arrival. Added an "Agent behavior" section to the team-brief template.
+
+**Action for adopting projects:** informational — no core process changed. On your next
+re-sync, consider whether to:
+- Add a `prompts/` subdirectory to your process knowledge tier if your project accumulates
+  reusable, non-role-specific prompts.
+- Add cache/log gitignore entries for whatever your AI tooling writes to disk.
+- Add "Multi-agent coordination" and "Agent behavior" sections to your existing `AGENTS.md`
+  and team-brief — or fold the rules into your existing "Boundaries" section if preferred.
+
 ## v1.0.0 — 2026-08-08 — Adopt semver versioning for the standard, tracked via git tags
 
 The re-sync marker in [`ADOPTING.md`](ADOPTING.md) previously keyed off dates alone. That broke
