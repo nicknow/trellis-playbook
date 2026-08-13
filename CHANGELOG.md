@@ -21,7 +21,7 @@ Entries above `v1.0.0` predate this versioning scheme and carry no version numbe
 only ever dated. If you adopted Trellis before `v1.0.0` existed, treat `v1.0.0` as your
 retroactive "last synced" marker (see that entry's "Action for adopting projects" note).
 
-## Unreleased — Prompts subdirectory, cache/log gitignore guidance, multi-agent coordination, and agent behavior rules
+## v1.1.0 — 2026-08-13 — Prompts subdirectory, cache/log gitignore guidance, multi-agent coordination, and agent behavior rules
 
 Driven by a comparison of Trellis against a widely-used workspace-scaffolding prompt for
 AI-assisted projects. Four gaps were identified — none affecting core principles, all additive
